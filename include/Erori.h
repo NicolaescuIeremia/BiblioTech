@@ -1,7 +1,8 @@
 #pragma once
 #include <stdexcept>
 #include <string>
-
+/// Baza EroareBiblioteca moștenește std::runtime_error.
+/// Avem 3 derivate distincte: EroareLipsaStoc, EroareObiectInexistent, EroareFormatInvalid
 class EroareBiblioteca : public std::runtime_error {
 public:
     explicit EroareBiblioteca(const std::string& mesaj);

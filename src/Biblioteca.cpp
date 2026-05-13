@@ -37,7 +37,7 @@ void Biblioteca::imprumuta(int userId, const std::string& isbn) {
     for (auto& p : publicatii) {
         if (p->getISBN() == isbn) {
             if (!p->esteDisponibila()) throw EroarePublicatieIndisponibila(isbn);
-            
+            //daca nu gasim cartea 
             p->imprumuta();
             userGasit->imprumutaCarte(p);
             return;
@@ -63,6 +63,8 @@ void Biblioteca::returneaza(int userId, const std::string& isbn) {
 void Biblioteca::afiseazaPublicatii() const {
     for (const auto& p : publicatii) {
         // Downcast cu sens folosind dynamic_pointer_cast
+        //verifica daca elementul e o revista la runtime si printeaza
+        //
         if (auto rev = std::dynamic_pointer_cast<Revista>(p)) {
             std::cout << "[INFO SPECIAL] Revista editia " << rev->getNumarEditie() << " este in sistem.\n";
         }

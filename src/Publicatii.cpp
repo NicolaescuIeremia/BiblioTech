@@ -20,7 +20,8 @@ std::ostream& operator<<(std::ostream& out, const Publicatie& p) {
     p.afisare(out);
     return out;
 }
-// ---- Carte ----
+//Carte
+//apelam constructorul de baza din derivate la constructorii derivatelor
 Carte::Carte(std::string titlu, std::string autor, std::string isbn, bool disponibil)
     : Publicatie(titlu, autor, isbn, disponibil) {}
 
@@ -30,7 +31,7 @@ void Carte::afisareDetalii(std::ostream& out) const {
     out << "[Carte] Titlu: " << titlu << ", Autor: " << autor;
 }
 
-// ---- Revista ----
+//Revista
 Revista::Revista(std::string titlu, std::string autor, std::string isbn, int numarEditie, bool disponibil)
     : Publicatie(titlu, autor, isbn, disponibil), numarEditie(numarEditie) {}
 
@@ -41,7 +42,7 @@ void Revista::afisareDetalii(std::ostream& out) const {
 }
 int Revista::getNumarEditie() const { return numarEditie; }
 
-// ---- AudioBook ----
+//AudioBook
 AudioBook::AudioBook(std::string titlu, std::string autor, std::string isbn, int durataMinute, bool disponibil)
     : Publicatie(titlu, autor, isbn, disponibil), durataMinute(durataMinute) {}
 

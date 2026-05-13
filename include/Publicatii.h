@@ -5,11 +5,12 @@
 
 class Publicatie {
 private:
-    static int numarTotal; // Cerința: atribut static
+    static int numarTotal; //atribut static
 protected:
     std::string titlu, autor, isbn;
     bool disponibil;
     // Cerința: afișare virtuală prin NVI
+    //functia printeaza detaliile fiecarui tip de publicatie 
     virtual void afisareDetalii(std::ostream& out) const = 0; 
 public:
     std::string getISBN() const;
@@ -18,19 +19,22 @@ public:
     void returneaza();
     Publicatie(std::string titlu, std::string autor, std::string isbn, bool disponibil = true);
     virtual ~Publicatie() = default;
+    //functia creeaza o copie a obiectului curent si o returneaza peint pointerul de baza publicatie
     virtual std::unique_ptr<Publicatie> clone() const = 0;
 
-    // Cerința: funcție statică
+    // Cerinta: functie statica
     static int getNumarTotal(); 
 
-    // Cerința: Interfață non-virtuală (NVI) publică ce apelează virtuala protected
+    // Cerinta: Interfata non-virtuala (NVI) publica ce apeleaza functia protected virtuala pura afisareDetalii()
     void afisare(std::ostream& out) const { 
         out << "- ";
         afisareDetalii(out);
     }
     
-    // ... restul metodelor tale (getters) rămân la fel
+    
 };
+
+/// Derivatele clasei de baza
 class Carte : public Publicatie {
 public:
     Carte(std::string titlu, std::string autor, std::string isbn, bool disponibil = true);
