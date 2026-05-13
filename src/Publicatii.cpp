@@ -1,24 +1,25 @@
 #include "../include/Publicatii.h"
 
-int Publicatie::nrTotalPublicatii = 0;
+int Publicatie::numarTotal = 0;
+
+int Publicatie::getNumarTotal() {
+    return numarTotal;
+}
 
 Publicatie::Publicatie(std::string titlu, std::string autor, std::string isbn, bool disponibil)
     : titlu(titlu), autor(autor), isbn(isbn), disponibil(disponibil) {
-    nrTotalPublicatii++;
+    numarTotal++;
 }
 
 std::string Publicatie::getISBN() const { return isbn; }
 bool Publicatie::esteDisponibila() const { return disponibil; }
 void Publicatie::imprumuta() { disponibil = false; }
 void Publicatie::returneaza() { disponibil = true; }
-int Publicatie::getNrTotal() { return nrTotalPublicatii; }
 
 std::ostream& operator<<(std::ostream& out, const Publicatie& p) {
-    p.afisareDetalii(out);
-    out << " | ISBN: " << p.isbn << " | Disponibil: " << (p.disponibil ? "Da" : "Nu");
+    p.afisare(out);
     return out;
 }
-
 // ---- Carte ----
 Carte::Carte(std::string titlu, std::string autor, std::string isbn, bool disponibil)
     : Publicatie(titlu, autor, isbn, disponibil) {}

@@ -4,31 +4,33 @@
 #include <memory>
 
 class Publicatie {
+private:
+    static int numarTotal; // Cerința: atribut static
 protected:
-    std::string titlu;
-    std::string autor;
-    std::string isbn;
+    std::string titlu, autor, isbn;
     bool disponibil;
-    static int nrTotalPublicatii; // atribut static
-
+    // Cerința: afișare virtuală prin NVI
+    virtual void afisareDetalii(std::ostream& out) const = 0; 
 public:
-    Publicatie(std::string titlu, std::string autor, std::string isbn, bool disponibil = true);
-    virtual ~Publicatie() = default;
-
-    virtual std::unique_ptr<Publicatie> clone() const = 0; // constructor virtual
-    virtual void afisareDetalii(std::ostream& out) const = 0; // metoda virtuala pura
-
     std::string getISBN() const;
     bool esteDisponibila() const;
     void imprumuta();
     void returneaza();
+    Publicatie(std::string titlu, std::string autor, std::string isbn, bool disponibil = true);
+    virtual ~Publicatie() = default;
+    virtual std::unique_ptr<Publicatie> clone() const = 0;
 
-    static int getNrTotal(); // functie statica
+    // Cerința: funcție statică
+    static int getNumarTotal(); 
 
-    // Interfata non-virtuala
-    friend std::ostream& operator<<(std::ostream& out, const Publicatie& p);
+    // Cerința: Interfață non-virtuală (NVI) publică ce apelează virtuala protected
+    void afisare(std::ostream& out) const { 
+        out << "- ";
+        afisareDetalii(out);
+    }
+    
+    // ... restul metodelor tale (getters) rămân la fel
 };
-
 class Carte : public Publicatie {
 public:
     Carte(std::string titlu, std::string autor, std::string isbn, bool disponibil = true);

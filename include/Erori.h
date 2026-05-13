@@ -1,26 +1,23 @@
 #pragma once
-#include <exception>
+#include <stdexcept>
 #include <string>
 
-class EroareBiblioteca : public std::exception {
-protected:
-    std::string mesaj;
+class EroareBiblioteca : public std::runtime_error {
 public:
-    explicit EroareBiblioteca(const std::string& msg);
-    const char* what() const noexcept override;
+    explicit EroareBiblioteca(const std::string& mesaj);
 };
 
-class EroarePublicatieIndisponibila : public EroareBiblioteca {
+class EroareLipsaStoc : public EroareBiblioteca {
 public:
-    explicit EroarePublicatieIndisponibila(const std::string& msg);
+    explicit EroareLipsaStoc(const std::string& titlu);
 };
 
-class EroarePublicatieInexistenta : public EroareBiblioteca {
+class EroareObiectInexistent : public EroareBiblioteca {
 public:
-    explicit EroarePublicatieInexistenta(const std::string& msg);
+    explicit EroareObiectInexistent(const std::string& id);
 };
 
-class EroareUtilizatorInexistent : public EroareBiblioteca {
+class EroareFormatInvalid : public EroareBiblioteca {
 public:
-    explicit EroareUtilizatorInexistent(const std::string& msg);
+    explicit EroareFormatInvalid(const std::string& detaliu);
 };

@@ -1,8 +1,9 @@
 #include "../include/Erori.h"
 
-EroareBiblioteca::EroareBiblioteca(const std::string& msg) : mesaj(msg) {}
-const char* EroareBiblioteca::what() const noexcept { return mesaj.c_str(); }
+EroareBiblioteca::EroareBiblioteca(const std::string& mesaj) : std::runtime_error(mesaj) {}
 
-EroarePublicatieIndisponibila::EroarePublicatieIndisponibila(const std::string& msg) : EroareBiblioteca("Indisponibil: " + msg) {}
-EroarePublicatieInexistenta::EroarePublicatieInexistenta(const std::string& msg) : EroareBiblioteca("Lipsa publicatie: " + msg) {}
-EroareUtilizatorInexistent::EroareUtilizatorInexistent(const std::string& msg) : EroareBiblioteca("Lipsa utilizator: " + msg) {}
+EroareLipsaStoc::EroareLipsaStoc(const std::string& titlu) : EroareBiblioteca("Stoc epuizat pentru: " + titlu) {}
+
+EroareObiectInexistent::EroareObiectInexistent(const std::string& id) : EroareBiblioteca("Nu s-a gasit: " + id) {}
+
+EroareFormatInvalid::EroareFormatInvalid(const std::string& detaliu) : EroareBiblioteca("Format invalid la: " + detaliu) {}
