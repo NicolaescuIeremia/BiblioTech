@@ -1,4 +1,5 @@
-
+#include <iostream>
+#include "../include/Utilizator.h"
 Utilizator::Utilizator(std::string nume, int id) : nume(nume), id(id) {}
 
 void Utilizator::imprumutaCarte(std::shared_ptr<Publicatie> p) {
