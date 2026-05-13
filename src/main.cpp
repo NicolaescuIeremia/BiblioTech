@@ -1,29 +1,37 @@
 #include "../include/Biblioteca.h"
+#include "../include/Publicatii.h"
+#include "../include/Erori.h"
+
 #include <iostream>
 
 int main() {
-    Biblioteca b;
+    try {
+        Biblioteca b;
 
-    Carte c1("1984", "George Orwell", "123");
-    Carte c2("Dune", "Frank Herbert", "456");
+        b.adaugaPublicatie(std::make_shared<Carte>("1984", "George Orwell", "111"));
+        b.adaugaPublicatie(std::make_shared<Revista>("Stiinta Azi", "Grup Ed.", "222", 45));
+        b.adaugaPublicatie(std::make_shared<AudioBook>("Dune", "Frank Herbert", "333", 1200));
+        b.adaugaPublicatie(std::make_shared<Brosura>("Ghid Utilizare", "Echipa", "555", 20));
 
-    Utilizator u1("Ana", 1);
-    Utilizator u2("Ion", 2);
+        Utilizator u1("Ana", 1);
+        b.adaugaUtilizator(u1);
 
-    b.adaugaCarte(c1);
-    b.adaugaCarte(c2);
+        std::cout << "--- Inainte de imprumut ---\n";
+        b.afiseazaPublicatii();
 
-    b.adaugaUtilizator(u1);
-    b.adaugaUtilizator(u2);
+        b.imprumuta(1, "222"); // Ana imprumuta revista
+        
+        std::cout << "\n--- Dupa imprumut ---\n" << b << "\n";
 
-    b.imprumutaCarte(1, "123");
+        // Testare exceptie: utilizator inexistent
+        // b.imprumuta(99, "111"); 
 
-    std::cout << b << "\n";
+        // Testare exceptie: carte deja imprumutata
+        // b.imprumuta(1, "222");
 
-    b.returneazaCarte(1, "123");
-
-    std::cout << "\nDupa returnare:\n";
-    std::cout << b << "\n";
+    } catch (const EroareBiblioteca& e) {
+        std::cerr << "Eroare prinsa in main: " << e.what() << "\n";
+    }
 
     return 0;
 }

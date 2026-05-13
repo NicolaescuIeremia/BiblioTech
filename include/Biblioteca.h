@@ -1,28 +1,29 @@
 #pragma once
 #include <vector>
-#include "Carte.h"
+#include <memory>
+#include "Publicatii.h"
 #include "Utilizator.h"
 
 class Biblioteca {
 private:
-    std::vector<Carte> carti;
+    std::vector<std::shared_ptr<Publicatie>> publicatii;
     std::vector<Utilizator> utilizatori;
 
 public:
     Biblioteca() = default;
 
-    // Copy constructor + operator=
+    // CC si op= (Copy and Swap)
     Biblioteca(const Biblioteca& other);
-    Biblioteca& operator=(const Biblioteca& other);
+    Biblioteca& operator=(Biblioteca other);
+    friend void swap(Biblioteca& first, Biblioteca& second) noexcept;
 
-    void adaugaCarte(const Carte& c);
+    void adaugaPublicatie(const std::shared_ptr<Publicatie>& p);
     void adaugaUtilizator(const Utilizator& u);
 
-    void imprumutaCarte(int userId, const std::string& isbn);
-    void returneazaCarte(int userId, const std::string& isbn);
+    void imprumuta(int userId, const std::string& isbn);
+    void returneaza(int userId, const std::string& isbn);
 
-    void afiseazaCarti() const;
-    void afiseazaUtilizatori() const;
+    void afiseazaPublicatii() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Biblioteca& b);
 };

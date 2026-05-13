@@ -1,4 +1,4 @@
-#include "Publicatii.h"
+#include "../include/Publicatii.h"
 
 int Publicatie::nrTotalPublicatii = 0;
 
@@ -48,4 +48,13 @@ std::unique_ptr<Publicatie> AudioBook::clone() const { return std::make_unique<A
 
 void AudioBook::afisareDetalii(std::ostream& out) const {
     out << "[AudioBook] Titlu: " << titlu << ", Autor: " << autor << ", Durata: " << durataMinute << " min";
+}
+
+Brosura::Brosura(std::string titlu, std::string autor, std::string isbn, int numarPagini, bool disponibil)
+    : Publicatie(titlu, autor, isbn, disponibil), numarPagini(numarPagini) {}
+
+std::unique_ptr<Publicatie> Brosura::clone() const { return std::make_unique<Brosura>(*this); }
+
+void Brosura::afisareDetalii(std::ostream& out) const {
+    out << "[Brosura] Titlu: " << titlu << ", Autor: " << autor << ", Pagini: " << numarPagini;
 }

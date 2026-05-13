@@ -54,3 +54,12 @@ public:
     std::unique_ptr<Publicatie> clone() const override;
     void afisareDetalii(std::ostream& out) const override;
 };
+
+class Brosura : public Publicatie {
+private:
+    int numarPagini;
+public:
+    Brosura(std::string titlu, std::string autor, std::string isbn, int numarPagini, bool disponibil = true);
+    std::unique_ptr<Publicatie> clone() const override;
+    void afisareDetalii(std::ostream& out) const override;
+};

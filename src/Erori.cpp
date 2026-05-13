@@ -1,4 +1,4 @@
-#include "Erori.h"
+#include "../include/Erori.h"
 
 EroareBiblioteca::EroareBiblioteca(const std::string& msg) : mesaj(msg) {}
 const char* EroareBiblioteca::what() const noexcept { return mesaj.c_str(); }
